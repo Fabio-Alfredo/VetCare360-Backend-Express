@@ -1,3 +1,4 @@
+import "dotenv/config";
 const { PORT, NODE_ENV, DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_DIALECT, SECRET_KEY_JWT } = process.env;
 
 
