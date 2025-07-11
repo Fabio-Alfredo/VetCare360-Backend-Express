@@ -2,7 +2,14 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../configurations/db.configuration/sequelize.config.js"
 
 
-class Pet extends Model { }
+class Pet extends Model {
+  static association(models) {
+    Pet.belongsTo(models.User,
+      {
+        foreignKey: "userId"
+      })
+  }
+}
 
 Pet.init({
   id: {
@@ -48,6 +55,7 @@ Pet.init({
     modelName: "Pet",
     tableName: "pets",
     timestamps: true,
+    underscored: true,
     paranoid: true
   }
 )

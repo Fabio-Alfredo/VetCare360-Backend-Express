@@ -1,7 +1,15 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../configurations/db.configuration/sequelize.config.js";
 
-class User extends Model { }
+class User extends Model {
+  static association(models) {
+    User.hasMany(models.Pet,
+      {
+        foreignKey: 'userId'
+      }
+    )
+  }
+}
 
 User.init(
   {
@@ -45,6 +53,7 @@ User.init(
     sequelize,
     modelName: "User",
     tableName: "users",
+    underscored: true,
     timestamps: true, // Automatically adds createdAt and updatedAt fields
     paranoid: true, // Enables soft deletes
   }
