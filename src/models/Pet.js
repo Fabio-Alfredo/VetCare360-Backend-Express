@@ -10,6 +10,9 @@ class Pet extends Model {
       }),
       Pet.hasMany(models.Appointment, {
         foreignKey: "petId"
+      }),
+      Pet.hasMany(models.Vaccine, {
+        foreignKey: "petId"
       })
   }
 }

@@ -1,7 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../configurations/db.configuration/sequelize.config.js";
 
-class Vaccine extends Model { }
+class Vaccine extends Model {
+  static association(models) {
+    Vaccine.belongsTo(models.Pet, {
+      foreignKey: "petId"
+    })
+  }
+}
 
 Vaccine.init({
   id: {
@@ -34,6 +40,7 @@ Vaccine.init({
     sequelize,
     modelName: "Vaccine",
     tableName: "vaccines",
+    underscored: true,
     timestamps: true,
     paranoid: true
   }
