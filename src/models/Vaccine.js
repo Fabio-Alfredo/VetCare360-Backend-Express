@@ -5,7 +5,10 @@ class Vaccine extends Model {
   static association(models) {
     Vaccine.belongsTo(models.Pet, {
       foreignKey: "petId"
-    })
+    }),
+      Vaccine.belongsTo(models.Veterinarian, {
+        foreignKey: "veterinarianId"
+      })
   }
 }
 

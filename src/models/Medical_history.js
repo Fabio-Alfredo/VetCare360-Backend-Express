@@ -5,7 +5,10 @@ class MedicalHistory extends Model {
   static association(models) {
     MedicalHistory.belongsTo(models.Pet, {
       foreignKey: "petId"
-    })
+    }),
+      MedicalHistory.belongsTo(models.Veterinarian, {
+        foreignKey: "veterinarianId"
+      })
   }
 }
 

@@ -6,6 +6,16 @@ class Veterinarian extends Model {
     Veterinarian.hasMany(models.Appointment, {
       foreignKey: "veterinarianId"
     })
+    Veterinarian.hasMany(models.Vaccine, {
+      foreignKey: "veterinariandId"
+    }),
+      Veterinarian.hasMany(models.MedicalHistory, {
+        foreignKey: "veterinarianId"
+      }),
+      Veterinarian.belongsTo(models.User, {
+        foreignKey: "userId"
+      })
+
   }
 }
 

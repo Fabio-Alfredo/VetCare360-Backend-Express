@@ -7,7 +7,10 @@ class User extends Model {
       {
         foreignKey: 'userId'
       }
-    )
+    ),
+      User.hasOne(models.Veterinarian, {
+        foreignKey: "userId"
+      })
   }
 }
 
