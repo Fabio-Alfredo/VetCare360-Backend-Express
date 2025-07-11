@@ -23,4 +23,12 @@ Invoice.init({
   detail: {
     type: DataTypes.STRING
   }
-}, {})
+},
+  {
+    sequelize,
+    modelName: "Invoice",
+    tableName: "invoices",
+    timestamps: true,
+    paranoid: true
+  }
+)
