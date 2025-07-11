@@ -29,4 +29,14 @@ Vaccine.init({
   observations: {
     type: DataTypes.STRING,
   }
-}, {})
+},
+  {
+    sequelize,
+    modelName: "Vaccine",
+    tableName: "vaccines",
+    timestamps: true,
+    paranoid: true
+  }
+)
+
+export default Vaccine
