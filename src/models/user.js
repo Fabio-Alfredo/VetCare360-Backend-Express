@@ -10,6 +10,9 @@ class User extends Model {
     ),
       User.hasOne(models.Veterinarian, {
         foreignKey: "userId"
+      }),
+      User.belongsToMany(models.Role, {
+        through: "user_roles"
       })
   }
 }
