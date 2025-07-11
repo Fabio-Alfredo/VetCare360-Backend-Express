@@ -7,6 +7,9 @@ class Pet extends Model {
     Pet.belongsTo(models.User,
       {
         foreignKey: "userId"
+      }),
+      Pet.hasMany(models.Appointment, {
+        foreignKey: "petId"
       })
   }
 }
