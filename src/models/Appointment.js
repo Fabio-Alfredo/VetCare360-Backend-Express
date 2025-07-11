@@ -5,7 +5,10 @@ class Appointment extends Model {
   static association(models) {
     Appointment.belongsTo(models.Pet, {
       foreignKey: "petId"
-    })
+    }),
+      Appointment.belongsTo(models.Veterinarian, {
+        foreignKey: "veterinarianId"
+      })
   }
 }
 

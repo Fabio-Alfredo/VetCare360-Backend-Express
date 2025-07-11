@@ -1,7 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../configurations/db.configuration/sequelize.config.js";
 
-class Veterinarian extends Model { }
+class Veterinarian extends Model {
+  static association(models) {
+    Veterinarian.hasMany(models.Appointment, {
+      foreignKey: "veterinarianId"
+    })
+  }
+}
 
 Veterinarian.init({
   id: {
@@ -30,6 +36,7 @@ Veterinarian.init({
     sequelize,
     modelName: "Veterinarian",
     tableName: "veterinarians",
+    underscored: true,
     timestamps: true,
     paranoid: true
   }
