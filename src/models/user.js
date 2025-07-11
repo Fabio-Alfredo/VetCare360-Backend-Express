@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../configurations/db.configuration/sequelize.config.js";
+import bcrypt from "bcryptjs";
 
 class User extends Model {
   static association(models) {
@@ -14,6 +15,10 @@ class User extends Model {
       User.belongsToMany(models.Role, {
         through: "user_roles"
       })
+  }
+
+  async validatePassword(password) {
+    return await bcrypt.compare(password, this.password);
   }
 }
 
@@ -62,6 +67,18 @@ User.init(
     underscored: true,
     timestamps: true, // Automatically adds createdAt and updatedAt fields
     paranoid: true, // Enables soft deletes
+    hooks: {
+      beforeCreate: async (user) => {
+        if (user.password) {
+          user.password = await bcrypt.hash(user.password, parseInt(10));
+        }
+      },
+      beforeUpdate: async (user) => {
+        if (user.changed("password")) {
+          user.password = await bcrypt.hash(password, parseInt(10));
+        }
+      }
+    }
   }
 );
 
