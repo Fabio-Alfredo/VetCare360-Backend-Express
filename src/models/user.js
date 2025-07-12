@@ -56,7 +56,10 @@ User.init(
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        is: /^[0-9]+$/, // Only digits allowed
+        is: {
+          args: /^[0-9]{8}$/,
+          msg: "El número de teléfono debe contener exactamente 8 dígitos",
+        }
       },
     },
   },

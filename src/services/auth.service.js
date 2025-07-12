@@ -10,7 +10,7 @@ export const registerUser = async (newUser) => {
 
     return user_repository.save(newUser);
   } catch (e) {
-    throw new Error("Error al registrar usuario", e);
+    throw new Error(e.message || "Error al registrar usuario");
   }
 }
 
@@ -25,6 +25,6 @@ export const loginUser = async (email, password) => {
 
     return token;
   } catch (e) {
-    throw new Error("Error al iniciar sesion", e)
+    throw new Error(e.message || "Error al registrar usuario");
   }
 }
