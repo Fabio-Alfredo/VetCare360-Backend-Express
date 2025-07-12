@@ -1,5 +1,6 @@
 import *as user_repository from "../repositories/user.repository.js"
 import *as veterinarian_repository from "../repositories/veterinarian.repository.js"
+import *as role_repository from "../repositories/role.repository.js"
 import { generate_token } from "../utils/security/jwt.security.js";
 import ServiceError from "../utils/errors/service.error.js";
 import { ValidationError } from "sequelize";
@@ -11,7 +12,17 @@ export const registerUser = async (newUser) => {
     if (user)
       throw new ServiceError(409, "Email ya registrado");
 
-    return await user_repository.save(newUser);
+    let roles = await role_repository.findAllByIds(["USR"]);
+
+    if (roles.length === 0)
+      throw new ServiceError(400, "Roles invalidos");
+
+    user = await user_repository.save(newUser);
+
+    await user.setRoles(roles);
+
+
+    return user;
   } catch (e) {
 
     if (e instanceof ValidationError) {
