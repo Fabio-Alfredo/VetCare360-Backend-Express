@@ -2,7 +2,7 @@ import *as auth_service from "../services/auth.service.js"
 import createHttpError from "http-errors";
 import responseHandler from "../handlers/res.handler.js";
 
-export const registerController = async (req, res, next) => {
+export const registerUserController = async (req, res, next) => {
   try {
     const user = req.body;
     const newUser = await auth_service.registerUser(user);
@@ -19,6 +19,17 @@ export const loginController = async (req, res, next) => {
     const token = await auth_service.loginUser(email, password);
 
     return responseHandler(res, 200, "Succces", token);
+  } catch (e) {
+    next(createHttpError(e.code, e.message));
+  }
+}
+
+export const registerVeterinarian = async (req, res, next) => {
+  try {
+    const user = req.body;
+    const newUser = await auth_service.registerVeterinarian(user);
+
+    return responseHandler(res, 200, "Veterinario registrado", newUser);
   } catch (e) {
     next(createHttpError(e.code, e.message));
   }
