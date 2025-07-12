@@ -4,5 +4,6 @@ import { Router } from "express";
 const authRoute = Router();
 
 authRoute.post("/register", auth_controller.registerController);
+authRoute.post("/login", auth_controller.loginController);
 
 export default authRoute;
