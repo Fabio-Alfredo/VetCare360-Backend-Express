@@ -7,7 +7,7 @@ export const registerController = async (req, res, next) => {
 
     res.status(200).send(newUser);
   } catch (e) {
-    res.status(400).json({
+    res.status(e.code).json({
       message: e.message || "Error interno del servidor"
     })
   }
