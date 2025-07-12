@@ -1,6 +1,4 @@
-import { Where } from "sequelize/lib/utils";
-import User from "../models/User";
-import { where } from "sequelize";
+import User from "../models/User.js";
 
 export const save = async (user) => {
   const newUser = await User.create(user);
