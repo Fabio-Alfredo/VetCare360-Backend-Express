@@ -1,4 +1,5 @@
 import *as auth_service from "../services/auth.service.js"
+import createHttpError from "http-errors";
 
 export const registerController = async (req, res, next) => {
   try {
@@ -7,9 +8,6 @@ export const registerController = async (req, res, next) => {
 
     res.status(200).send(newUser);
   } catch (e) {
-    res.status(e.code).json({
-      message: e.message || "Error interno del servidor"
-    });
-
+    next(createHttpError(e.code, e.message))
   }
 }
