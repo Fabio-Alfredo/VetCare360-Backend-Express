@@ -1,4 +1,5 @@
 import *as user_repository from "../repositories/user.repository.js"
+import { generate_token } from "../utils/security/jwt.security.js";
 
 export const registerUser = async (newUser) => {
   try {
@@ -20,7 +21,9 @@ export const loginUser = async (email, password) => {
     if (!user && !(await user.validatePassword(password)))
       throw new Error("Credenciales invalidas");
 
-    return "token";
+    const token = generate_token({ id: user.id })
+
+    return token;
   } catch (e) {
     throw new Error("Error al iniciar sesion", e)
   }
