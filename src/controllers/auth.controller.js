@@ -9,6 +9,7 @@ export const registerController = async (req, res, next) => {
   } catch (e) {
     res.status(e.code).json({
       message: e.message || "Error interno del servidor"
-    })
+    });
+
   }
 }
