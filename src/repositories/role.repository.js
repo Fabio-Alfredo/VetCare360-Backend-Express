@@ -11,3 +11,8 @@ export const findAllByIds = async (ids) => {
   })
   return roles;
 }
+
+export const findById = async (id) => {
+  const role = await Role.findByPk(id);
+  return role;
+};
