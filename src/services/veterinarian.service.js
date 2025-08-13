@@ -1,5 +1,5 @@
 import * as veterinarian_repository from '../repositories/veterinarian.repository.js';
-import { findUserById } from './user.service.js';
+import { findUserById, updateRole } from './user.service.js';
 import { ValidationError } from 'sequelize';
 import ServiceError from '../utils/errors/service.error.js';
 
@@ -12,7 +12,8 @@ export const createVeterinarian = async (veterinarianData)=>{
 
         const newVeterinarian = await veterinarian_repository.save(veterinarianData);
         await newVeterinarian.setUser(user);
-        
+        await updateRole(user.id, "VET")
+
         return newVeterinarian;
     }catch(e){
         if(e instanceof ValidationError){
