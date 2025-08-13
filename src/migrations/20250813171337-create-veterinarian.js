@@ -38,7 +38,9 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
-      }
+      },
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE
     })
   },
 
@@ -49,5 +51,7 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
+
+    await queryInterface.dropTable('veterinarians');
   }
 };

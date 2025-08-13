@@ -9,36 +9,18 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable('users',{
+    await queryInterface.createTable('roles', {
       id:{
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        primaryKey: true
+        type: Sequelize.STRING,
+        primaryKey: true,
+        allowNull: false
       },
       name:{
         type: Sequelize.STRING,
         allowNull: false
       },
-      lastName:{
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      email:{
-        type:Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      password:{
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      phone:{
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE
-
     })
   },
 
@@ -49,6 +31,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('roles');
   }
 };
