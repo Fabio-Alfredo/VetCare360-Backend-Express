@@ -19,7 +19,8 @@ export const generate_token = (payload) => {
 
 export const verify_token = (token) => {
   try {
-    const decoded = jwt.verify(token, secretOrPublicKey);
+
+    const decoded = jwt.verify(token, currentConfig.secretKeyJwt);
     return decoded;
   } catch (e) {
     if (e instanceof jwt.TokenExpiredError) {
