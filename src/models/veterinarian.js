@@ -35,7 +35,7 @@ Veterinarian.init({
     allowNull: false
   },
   available_schedule: {
-    type: DataTypes.ARRAY(DataTypes.STRING),
+    type: DataTypes.JSON,
     allowNull: false,
     validate: {
       isValidScheduleArray(value) {

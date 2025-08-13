@@ -23,14 +23,3 @@ export const loginController = async (req, res, next) => {
     next(createHttpError(e.code, e.message));
   }
 }
-
-export const registerVeterinarian = async (req, res, next) => {
-  try {
-    const user = req.body;
-    const newUser = await auth_service.registerVeterinarian(user);
-
-    return responseHandler(res, 200, "Veterinario registrado", newUser);
-  } catch (e) {
-    next(createHttpError(e.code, e.message));
-  }
-}

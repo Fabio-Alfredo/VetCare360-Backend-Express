@@ -6,7 +6,4 @@ const authRoute = Router();
 authRoute.post("/register", auth_controller.registerUserController);
 authRoute.post("/login", auth_controller.loginController);
 
-//verificar los permisos para quienes pueden crear este tipo de usuario
-authRoute.post("/register/veterinarian", auth_controller.registerVeterinarian);
-
 export default authRoute;
