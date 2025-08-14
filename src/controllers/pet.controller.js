@@ -24,3 +24,34 @@ export const findAllPets = async (req, res, next) => {
         next(createHttpError(e.code, e.message));
     }
 }
+
+export const findPetById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const pet = await pet_service.findPetById(id);
+        return responseHandler(res, 200, "Mascota encontrada con éxito", pet);
+    } catch (e) {
+        next(createHttpError(e.code, e.message));
+    }
+};
+
+
+export const findAllByUserId = async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+        const pets = await pet_service.findAllPetsByUser(userId);
+        return responseHandler(res, 200, "Mascotas encontradas con éxito", pets);
+    } catch (e) {
+        next(createHttpError(e.code, e.message));
+    }
+};
+
+export const findAllMyPets = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const pets = await pet_service.findAllPetsByUser(userId);
+        return responseHandler(res, 200, "Mis mascotas encontradas con éxito", pets);
+    } catch (e) {
+        next(createHttpError(e.code, e.message));
+    }
+};

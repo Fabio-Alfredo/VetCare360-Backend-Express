@@ -46,3 +46,47 @@ export const findAllPets = async (page, limit) => {
         );
     }
 }
+
+export const findPetById = async(id)=>{
+    try{
+        const pet = await pet_repository.getPetById(id);
+        if(!pet){
+            throw new ServiceError(404, "Mascota no encontrada");
+        }
+        return pet;
+    }catch(e){
+        if(e instanceof ValidationError){
+            throw new ServiceError(
+                400,
+                e.errors.map((err) => err.message).join(", ")
+            );
+        }
+
+        throw new ServiceError(
+            e.code || 500,
+            e.message || "Error interno del servidor"
+        );
+    }
+}
+
+
+export const findAllPetsByUser= async(userId)=>{
+    try{
+        const user = await findUserById(userId);
+
+        const pets = await pet_repository.getPetByUserId(user.id);
+        return pets;
+    }catch(e){
+        if(e instanceof ValidationError){
+            throw new ServiceError(
+                400,
+                e.errors.map((err) => err.message).join(", ")
+            );
+        }
+
+        throw new ServiceError(
+            e.code || 500,
+            e.message || "Error interno del servidor"
+        );
+    }
+}
