@@ -11,7 +11,6 @@ export const createVeterinarian = async (veterinarianData)=>{
         const existingVet = await veterinarian_repository.findByUserId(user.id);
         
         if(existingVet) throw new ServiceError(409, "Ya existe un veterinario asociado a este usuario");
-        delete veterinarianData.userId;
 
         const newVeterinarian = await veterinarian_repository.save(veterinarianData, t);
         await newVeterinarian.setUser(user.id, { transaction: t });

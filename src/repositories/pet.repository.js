@@ -1,7 +1,11 @@
 import Pet from '../models/Pet.js';
 
-export const createPet = async (petData)=>{
-    const pet = await Pet.create(petData);
+export const startTransaction = async () => {
+    return await Pet.sequelize.transaction();
+};
+
+export const createPet = async (petData, transaction) => {
+    const pet = await Pet.create(petData, { transaction });
     return pet;
 }
 
