@@ -27,3 +27,22 @@ export const registerPet = async(petData, authUser)=>{
         );
     }
 }
+
+export const findAllPets = async (page, limit) => {
+    try {
+        const { totalPets, totalPages, currentPage, pets } = await pet_repository.getPets(page, limit);
+        return { totalPets, totalPages, currentPage, pets };
+    } catch (e) {
+        if (e instanceof ValidationError) {
+            throw new ServiceError(
+                400,
+                e.errors.map((err) => err.message).join(", ")
+            );
+        }
+
+        throw new ServiceError(
+            e.code || 500,
+            e.message || "Error interno del servidor"
+        );
+    }
+}

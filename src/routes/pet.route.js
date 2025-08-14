@@ -5,5 +5,6 @@ import *as security from '../middlewares/security.middleware.js'
 const router = Router();
 
 router.post("/register", security.authMiddleware, pet_controller.registerPet);
+router.get("/all", security.authMiddleware, pet_controller.findAllPets);
 
 export default router;

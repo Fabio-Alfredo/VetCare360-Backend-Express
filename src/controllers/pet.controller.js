@@ -11,3 +11,16 @@ export const registerPet = async (req, res, next) => {
         next(createHttpError(error.code, error.message));
     }
 };
+
+
+export const findAllPets = async (req, res, next) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+
+        const pets = await pet_service.findAllPets(page, limit);
+        return responseHandler(res, 200, "Mascotas encontradas con éxito", pets);
+    } catch (e) {
+        next(createHttpError(e.code, e.message));
+    }
+}
