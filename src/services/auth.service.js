@@ -11,10 +11,10 @@ export const registerUser = async (newUser) => {
 
     if (user) throw new ServiceError(409, "Email ya registrado");
 
-    let roles = await role_service.findById(currentConfig.defaultRole);
+    let role = await role_service.findById(currentConfig.defaultRole);
     user = await user_repository.save(newUser);
 
-    await user.setRoles(roles);
+    await user.setRole(role);
 
     return user;
   } catch (e) {

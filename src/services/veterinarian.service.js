@@ -29,3 +29,22 @@ export const createVeterinarian = async (veterinarianData)=>{
         );
     }
 }
+
+export const findAllVeterinarians = async()=>{
+    try{
+        const veterinarians = await veterinarian_repository.findAll();
+        return veterinarians;
+    }catch(e){
+        if(e instanceof ValidationError){
+            throw new ServiceError(
+                400,
+                e.errors.map((err) => err.message).join(", ")
+            );
+        }
+
+        throw new ServiceError(
+            e.code || 500,
+            e.message || "Error interno del servidor"
+        );
+    }
+}

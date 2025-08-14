@@ -13,3 +13,12 @@ export const registerVeterinarian = async (req, res, next)=>{
         next(createHttpError(e.code, e.message));
     }
 }
+
+export const getAllVeterinarians = async (req, res, next)=>{
+    try{
+        const veterinarians = await veterinarian_service.findAllVeterinarians();
+        return responseHandler(res, 200, "Veterinarios obtenidos con éxito", veterinarians);
+    }catch(e){
+        next(createHttpError(e.code, e.message));
+    }
+}

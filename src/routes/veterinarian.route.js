@@ -11,4 +11,10 @@ vetRouter.post(
   veterinarian_controller.registerVeterinarian
 );
 
+vetRouter.get(
+  "/all",
+  security.authMiddleware,
+  veterinarian_controller.getAllVeterinarians
+);
+
 export default vetRouter;
