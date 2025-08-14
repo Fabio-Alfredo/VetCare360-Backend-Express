@@ -4,7 +4,9 @@ import sequelize from "../configurations/db.configuration/sequelize.config.js";
 class Role extends Model {
   static association(models) {
     Role.belongsToMany(models.User, {
-      through: "user_roles"
+      through: "user_roles",
+      foreignKey: "roleId",
+      otherKey: "userId"
     })
   }
 }

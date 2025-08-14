@@ -3,18 +3,20 @@ import sequelize from "../configurations/db.configuration/sequelize.config.js";
 import bcrypt from "bcryptjs";
 
 class User extends Model {
-  static association(models) {
+    static association(models) {
     User.hasMany(models.Pet,
       {
         foreignKey: 'userId'
       }
     ),
-      User.hasOne(models.Veterinarian, {
-        foreignKey: "userId"
-      }),
-      User.belongsToMany(models.Role, {
-        through: "user_roles"
-      })
+    User.hasOne(models.Veterinarian, {
+      foreignKey: "userId"
+    }),
+    User.belongsToMany(models.Role, {
+      through: "user_roles",
+      foreignKey: "userId",
+      otherKey: "roleId"
+    })
   }
 
   async validatePassword(password) {

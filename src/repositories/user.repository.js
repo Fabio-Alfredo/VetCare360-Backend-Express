@@ -1,7 +1,12 @@
 import User from "../models/user.js";
 
-export const save = async (user) => {
-  const newUser = await User.create(user);
+export const startTransaction = async()=>{
+  const t = await User.sequelize.transaction();
+  return t;
+}
+
+export const save = async (user, transaction) => {
+  const newUser = await User.create(user, { transaction });
   return newUser;
 }
 

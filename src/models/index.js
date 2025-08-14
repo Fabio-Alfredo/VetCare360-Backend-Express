@@ -19,7 +19,6 @@ export const registerModels = async () => {
   }
 
   const { models } = sequelize;
-
   Object.values(models).forEach((model) => {
     if (typeof model.association === "function") {
       model.association(models);

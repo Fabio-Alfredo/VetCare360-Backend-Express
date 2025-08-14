@@ -1,8 +1,13 @@
 import Veterinarian from "../models/Veterinarian.js";
 import User from "../models/user.js";
 
-export const save = async (veterinarian) => {
-  const newVeterinaria = await Veterinarian.create(veterinarian);
+export const startTransaction = async () => {
+  const transaction = await Veterinarian.sequelize.transaction();
+  return transaction;
+};
+
+export const save = async (veterinarian, transaction) => {
+  const newVeterinaria = await Veterinarian.create(veterinarian, { transaction });
   return newVeterinaria;
 }
 
