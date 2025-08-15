@@ -1,6 +1,8 @@
 import { Router } from "express";
 import * as veterinarian_controller from "../controllers/veterinarian.controller.js";
 import * as security from "../middlewares/security.middleware.js";
+import * as veterinarian_validator from "../utils/validator/veterinarian.validator.js";
+import { validateRequest } from "../middlewares/validator.middleware.js";
 
 const vetRouter = Router();
 
@@ -8,6 +10,8 @@ const vetRouter = Router();
 vetRouter.post(
   "/register",
   security.authMiddleware,
+  veterinarian_validator.veterinarianRegisterValidator,
+  validateRequest,
   veterinarian_controller.registerVeterinarian
 );
 
