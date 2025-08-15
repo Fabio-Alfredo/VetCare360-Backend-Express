@@ -12,12 +12,16 @@ export const save = async (user, transaction) => {
 
 export const findByemail = async (email) => {
   const user = await db.User.findOne({
-    where: { email },
-    include:[
-      {model: db.Role, attributes: ["id", "name"]}
-    ]
+    where: { email }
    })
   return user;
+}
+
+export const findUserAndRoles = async (id)=>{
+  const user = await db.User.findByPk(id);
+  const roles = await user.getRoles();
+
+  return { user, roles };
 }
 
 export const findById = async (id) => {

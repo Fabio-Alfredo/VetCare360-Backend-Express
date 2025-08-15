@@ -1,5 +1,6 @@
 import createHttpError from "http-errors";
 import { verify_token } from "../utils/security/jwt.security.js";
+import { findUserAndRolesById } from "../services/user.service.js";
 
 export const authMiddleware = async (req, res, next) => {
   try {
@@ -17,8 +18,12 @@ export const authMiddleware = async (req, res, next) => {
     if (!decoded)
       return next(createHttpError(401, "Invalid authorization token"));
 
-    req.user = decoded;
+    const { user, rolesId } = await findUserAndRolesById(decoded.id);
+
+    req.user = user;
+    req.roles = rolesId;
     req.token = token;
+    
     next();
   } catch (e) {
     next(createHttpError(401, e.message || "Unknown error"));
@@ -29,8 +34,8 @@ export const authorizationMiddleware = (requiredRole = []) => {
   return async (req, res, next) => {
     if (
       !req.user ||
-      !req.user.role ||
-      !requiredRole.some((r) => user.roles.includes(r))
+      !req.roles ||
+      !requiredRole.some((r) => req.roles.includes(r))
     ) {
       return next(
         createHttpError(
