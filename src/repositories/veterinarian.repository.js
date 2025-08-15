@@ -1,23 +1,22 @@
-import Veterinarian from "../models/Veterinarian.js";
-import User from "../models/user.js";
+import db from "../models/index.js";
 
 export const startTransaction = async () => {
-  const transaction = await Veterinarian.sequelize.transaction();
+  const transaction = await db.sequelize.transaction();
   return transaction;
 };
 
 export const save = async (veterinarian, transaction) => {
-  const newVeterinaria = await Veterinarian.create(veterinarian, { transaction });
+  const newVeterinaria = await db.Veterinarian.create(veterinarian, { transaction });
   return newVeterinaria;
 }
 
 export const findByUserId = async (userId)=>{
-  const veterinarian = await Veterinarian.findOne({ where: { userId } });
+  const veterinarian = await db.Veterinarian.findOne({ where: { userId } });
   return veterinarian;
 }
 
 export const findAll = async ()=>{
-  const veterinarians = await Veterinarian.findAll(
+  const veterinarians = await db.Veterinarian.findAll(
     {
       include: [
         {

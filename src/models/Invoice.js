@@ -32,3 +32,5 @@ Invoice.init({
     paranoid: true
   }
 )
+
+export default Invoice;

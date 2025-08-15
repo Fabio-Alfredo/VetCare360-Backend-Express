@@ -1,11 +1,11 @@
-import Role from "../models/Role.js";
+import db from "../models/index.js";
 import { Op } from "sequelize";
 
 export const findAllByIds = async (ids) => {
-  const roles = await Role.findAll({
+  const roles = await db.Role.findAll({
     where: {
       id: {
-        [Op.in]: ids
+        [Op.in]: ids 
       }
     }
   })
@@ -13,6 +13,6 @@ export const findAllByIds = async (ids) => {
 }
 
 export const findById = async (id) => {
-  const role = await Role.findByPk(id);
+  const role = await db.Role.findByPk(id);
   return role;
 };

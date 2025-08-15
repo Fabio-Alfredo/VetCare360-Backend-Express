@@ -1,16 +1,16 @@
-import Pet from "../models/Pet.js";
+import db from "../models/index.js";
 
 export const startTransaction = async () => {
-  return await Pet.sequelize.transaction();
+  return await db.sequelize.transaction();
 };
 
 export const createPet = async (petData, transaction) => {
-  const pet = await Pet.create(petData, { transaction });
+  const pet = await db.Pet.create(petData, { transaction });
   return pet;
 };
 
 export const getPets = async (page = 1, limit = 10) => {
-  const { count, rows } = await Pet.findAndCountAll({
+  const { count, rows } = await db.Pet.findAndCountAll({
     offset: (page - 1) * limit,
     limit: limit,
   });
@@ -19,11 +19,11 @@ export const getPets = async (page = 1, limit = 10) => {
 };
 
 export const getPetById = async (id) => {
-  const pet = await Pet.findByPk(id);
+  const pet = await db.Pet.findByPk(id);
   return pet;
 };
 
 export const getPetByUserId = async (userId) => {
-  const pets = await Pet.findAll({ where: { userId } });
+  const pets = await db.Pet.findAll({ where: { userId } });
   return pets;
 };

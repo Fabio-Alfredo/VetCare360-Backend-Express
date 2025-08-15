@@ -1,27 +1,37 @@
-// src/configurations/db.configuration/registerModels.jsAdd commentMore actions
 import fs from "fs";
 import path from "path";
+import { Sequelize } from "sequelize";
 import { fileURLToPath } from "url";
 import sequelize from "../configurations/db.configuration/sequelize.config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const registerModels = async () => {
-  const modelsDir = path.join(__dirname, "../models");
+const db = {};
 
-  const files = fs.readdirSync(modelsDir);
+// Leemos todos los archivos .js en la carpeta models
+const files = fs
+  .readdirSync(__dirname)
+  .filter(
+    (file) =>
+      file !== path.basename(__filename) && file.endsWith(".js")
+  );
 
-  for (const file of files) {
-    if (file.endsWith(".js")) {
-      await import(path.join(modelsDir, file));
-    }
+// Importamos los modelos dinámicamente
+for (const file of files) {
+  const modelModule = await import(`./${file}`);
+  const model = modelModule.default; 
+  db[model.name] = model;
+}
+
+// Configuramos las asociaciones
+for (const modelName of Object.keys(db)) {
+  if (typeof db[modelName].association === "function") {
+    db[modelName].association(db);
   }
+}
 
-  const { models } = sequelize;
-  Object.values(models).forEach((model) => {
-    if (typeof model.association === "function") {
-      model.association(models);
-    }
-  });
-};
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+export default db;
