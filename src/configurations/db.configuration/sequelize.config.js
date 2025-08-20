@@ -8,8 +8,8 @@ const sequelize = new Sequelize({
   dialect: currentConfig.db.dialect,
 
   dialectOptions: {
-    socketPath: currentConfig.db.host, // For MySQL socket connection
-  }
+    socketPath: currentConfig.db.host,
+  },
 })
 
 export default sequelize;

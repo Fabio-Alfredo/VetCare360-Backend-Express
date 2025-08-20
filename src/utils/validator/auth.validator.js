@@ -7,16 +7,16 @@ export const registerValidator =[
     .trim()
     .isString()
     .notEmpty()
-    .isLength({ min: 2, max: 100 })
-    .withMessage("El nombre debe tener entre 2 y 100 caracteres")
+    .isLength({ min: 3, max: 20 })
+    .withMessage("El nombre debe tener entre 3 y 20 caracteres")
     .bail(),
 
     body("lastName")
     .trim()
     .isString()
     .notEmpty()
-    .isLength({ min: 2, max: 100 })
-    .withMessage("El apellido debe tener entre 2 y 100 caracteres")
+    .isLength({ min: 3, max: 20 })
+    .withMessage("El apellido debe tener entre 3 y 20 caracteres")
     .bail(),
 
     body("email")
@@ -45,7 +45,7 @@ export const registerValidator =[
     .trim()
     .isString()
     .notEmpty()
-    .matches(/^[0-9]{8}$/)
+    .matches(/^\d+$/)
     .withMessage("El teléfono debe tener 8 dígitos")
     .bail()
 ]

@@ -37,5 +37,4 @@ export const config = {
 };
 
 const environment = validateEnv("NODE_ENV", NODE_ENV) || "development";
-
 export const currentConfig = config[environment];

@@ -14,8 +14,7 @@ export const registerUser = async (newUser) => {
     let role = await role_service.findById(currentConfig.defaultRole);
 
     user = await user_repository.save(newUser, t);
-
-    await role.addUser(user.id, { transaction: t });
+    user.setRole(role.id, { transaction: t });
 
     await t.commit();
     return user;

@@ -80,7 +80,7 @@ User.init(
       },
       beforeUpdate: async (user) => {
         if (user.changed("password")) {
-          user.password = await bcrypt.hash(password, parseInt(10));
+          user.password = await bcrypt.hash(user.password, parseInt(10));
         }
       }
     }
