@@ -1,4 +1,6 @@
 import { body, param } from "express-validator";
+import { ESPECIES_VALUES } from "../constants/species.constant.js";
+import { SEX_VALUES } from "../constants/sex.constant.js";
 
 export const registerPetValidator = [
   body("name")
@@ -12,6 +14,7 @@ export const registerPetValidator = [
     .trim()
     .isString()
     .notEmpty()
+    .isIn(ESPECIES_VALUES)
     .withMessage("La especie es obligatoria")
     .bail(),
 
@@ -26,6 +29,7 @@ export const registerPetValidator = [
     .trim()
     .isString()
     .notEmpty()
+    .isIn(SEX_VALUES)
     .withMessage("El sexo es obligatorio")
     .bail(),
 

@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../configurations/db.configuration/sequelize.config.js"
-
+import { ESPECIES , ESPECIES_VALUES} from "../utils/constants/species.constant.js";
+import { SEX, SEX_VALUES } from "../utils/constants/sex.constant.js";
 
 class Pet extends Model {
   static association(models) {
@@ -33,7 +34,7 @@ Pet.init({
   species: {
     type: DataTypes.STRING,
     validate: {
-      isIn: [["Perro", "Gato", "Conejo"]]
+      isIn: [ESPECIES_VALUES]
     },
     allowNull: false
   },
@@ -44,9 +45,9 @@ Pet.init({
   },
   sexo: {
     type: DataTypes.STRING,
-    defaultValue: "Indefinido",
+    defaultValue: SEX.UNKNOWN,
     validate: {
-      isIn: [["Masculino", "Femenino", "Indefinido"]]
+      isIn: [SEX_VALUES]
     },
     allowNull: false
   },
