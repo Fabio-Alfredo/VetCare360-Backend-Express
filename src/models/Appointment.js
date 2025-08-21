@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../configurations/db.configuration/sequelize.config.js";
-import { APPOINTMENT_STATUS_VALUES } from "../utils/constants/appointmentStatus.constant.js";
+import { APPOINTMENT_STATUS_VALUES, APPOINTMENT_STATUS } from "../utils/constants/appointmentStatus.constant.js";
 
 class Appointment extends Model {
   static association(models) {
@@ -34,12 +34,20 @@ Appointment.init({
   status: {
     type: DataTypes.STRING,
     allowNull: false,
+    defaultValue: APPOINTMENT_STATUS.PENDING,
     validate: {
       isIn: [APPOINTMENT_STATUS_VALUES]
     }
   },
   notes: {
     type: DataTypes.STRING
+  },
+  estimated_duration: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    validate: {
+      min: 1
+    }
   }
 }, {
   sequelize,
