@@ -20,3 +20,14 @@ export const updateDataUser = async (req, res, next) => {
     next(createHttpError(e.code, e.message));
   }
 };
+
+
+export const findUserById = async(req, res, next)=>{
+  try{
+    const { id } = req.params;
+    const user = await user_service.findUserById(id);
+    return responseHandler(res, 200, "Usuario encontrado", user);
+  }catch(e){
+    next(createHttpError(e.code, e.message));
+  }
+}

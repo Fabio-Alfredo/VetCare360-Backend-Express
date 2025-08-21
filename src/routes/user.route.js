@@ -15,4 +15,13 @@ userRoute.patch(
     user_controller.updateDataUser
 );
 
+userRoute.get(
+    "/:id",
+    security.authMiddleware,
+    security.authorizationMiddleware(["VET"]),
+    user_validator.idParamValidator(),
+    validateRequest,
+    user_controller.findUserById
+);
+
 export default userRoute;
