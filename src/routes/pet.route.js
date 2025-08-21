@@ -14,15 +14,13 @@ router.post(
   pet_controller.registerPet
 );
 
-router.get("/all",
-    security.authMiddleware, 
-    pet_controller.findAllPets
-);
-router.get("/by-id/:id", 
-    security.authMiddleware, 
-    pet_validator.idParamValidator("id"),
-    validateRequest,
-    pet_controller.findPetById
+router.get("/all", security.authMiddleware, pet_controller.findAllPets);
+router.get(
+  "/by-id/:id",
+  security.authMiddleware,
+  pet_validator.idParamValidator("id"),
+  validateRequest,
+  pet_controller.findPetById
 );
 router.get(
   "/by-user/:userId",
@@ -33,4 +31,12 @@ router.get(
 );
 router.get("/my-pets", security.authMiddleware, pet_controller.findAllMyPets);
 
+router.patch(
+  "/update/:id",
+  security.authMiddleware,
+  pet_validator.idParamValidator("id"),
+  pet_validator.updatePetValidator,
+  validateRequest,
+  pet_controller.updatePet
+);
 export default router;

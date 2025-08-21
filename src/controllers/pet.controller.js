@@ -55,3 +55,16 @@ export const findAllMyPets = async (req, res, next) => {
         next(createHttpError(e.code, e.message));
     }
 };
+
+export const updatePet = async(req, res,next)=>{
+    try{
+        const { id } = req.params;
+        const petData = req.body;
+        const user = req.user;
+
+        const updatedPet = await pet_service.updatePet(id, petData, user.id);
+        return responseHandler(res, 200, "Mascota actualizada con éxito", updatedPet);
+    }catch(e){
+        next(createHttpError(e.code, e.message));
+    }
+}

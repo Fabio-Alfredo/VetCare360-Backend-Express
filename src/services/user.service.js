@@ -52,7 +52,7 @@ export const updateUser = async (id, userData) => {
 
     const user = await findUserById(id);
     for(const key of ["name", "email", "phone", "lastName"]) {
-      if(userData[key]) {
+      if(userData[key] !== undefined) {
         user[key] = userData[key];
       }
     }
