@@ -21,4 +21,11 @@ vetRouter.get(
   veterinarian_controller.getAllVeterinarians
 );
 
+vetRouter.get(
+  "/:id",
+  security.authMiddleware,
+  veterinarian_validator.idParamValidator("id"),
+  validateRequest,
+  veterinarian_controller.findVeterinarianById
+);
 export default vetRouter;

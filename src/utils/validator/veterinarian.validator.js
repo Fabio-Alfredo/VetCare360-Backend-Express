@@ -40,3 +40,11 @@ export const veterinarianRegisterValidator = [
     .withMessage("El ID de usuario es obligatorio y debe ser un UUID válido")
     .bail(),
 ];
+
+export const idParamValidator = (paramName = "id") => [
+  param(paramName)
+    .trim()
+    .isUUID(4)
+    .withMessage(`El parámetro ${paramName} debe ser un UUID válido`)
+    .bail(),
+];
