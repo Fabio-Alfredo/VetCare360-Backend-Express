@@ -42,13 +42,13 @@ Appointment.init({
   notes: {
     type: DataTypes.STRING
   },
-  estimated_duration: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    validate: {
-      min: 1
-    }
-  }
+  // estimated_duration: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: true,
+  //   validate: {
+  //     min: 1
+  //   }
+  // }
 }, {
   sequelize,
   modelName: "Appointment",

@@ -11,3 +11,18 @@ export const save = async (appointment, transaction) => {
   });
   return newAppointment;
 };
+
+export const findAllByPetsAndStatusAndDate = async (petIds, status, minDate, maxDate) => {
+
+
+  const appointments = await db.Appointment.findAll({
+    where: {
+      pet_id: petIds,
+      status,
+      date_time: {
+        [db.Sequelize.Op.between]: [minDate, maxDate],
+      },
+    },
+  });
+  return appointments;
+};
